@@ -6,7 +6,7 @@ import com.google.uala_challenge.data.dto.CitiesResponse
 import com.google.uala_challenge.domain.repository.CitiesRepository
 
 class CitiesRepositoryImpl(val citiesService: CitiesService = CitiesService()) : CitiesRepository {
-    override suspend fun getAllCities(): AsyncResult<CitiesResponse, Exception> {
+    override suspend fun getAllCities(): AsyncResult<List<CitiesResponse>, Exception> {
         return citiesService.getCities()
     }
 }

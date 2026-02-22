@@ -7,7 +7,7 @@ import com.google.uala_challenge.data.dto.CitiesResponse
 
 class CitiesService(val citiesAPI: CitiesAPI = RetrofitProvider.getInstance()) {
 
-    suspend fun getCities(): AsyncResult<CitiesResponse, Exception> {
+    suspend fun getCities(): AsyncResult<List<CitiesResponse>, Exception> {
         return try {
             val result = citiesAPI.getAllCities()
             if (result.isSuccessful) {

@@ -4,5 +4,5 @@ import com.google.uala_challenge.data.dto.AsyncResult
 import com.google.uala_challenge.data.dto.CitiesResponse
 
 interface CitiesRepository {
-    suspend fun getAllCities(): AsyncResult<CitiesResponse, Exception>
+    suspend fun getAllCities(): AsyncResult<List<CitiesResponse>, Exception>
 }
