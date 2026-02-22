@@ -1,0 +1,24 @@
+package com.google.uala_challenge.domain.mapper
+
+import com.google.uala_challenge.data.dto.CitiesResponse
+import com.google.uala_challenge.domain.model.CitiesModel
+
+fun CitiesResponse.toModel(): CitiesModel {
+    return CitiesModel(
+        cities = this.toListCities() ?: emptyList()
+    )
+}
+
+private fun CitiesResponse.toListCities(): List<CitiesModel.Citi>? {
+    return this.cities?.map { citi ->
+        CitiesModel.Citi(
+            country = citi.country.orEmpty(),
+            id = citi.id ?: 0,
+            name = citi.name.orEmpty(),
+            coordinates = CitiesModel.Citi.Coordinates(
+                latitude = citi.coordinates.latitude ?: 0.0,
+                longitude = citi.coordinates.longitude ?: 0.0
+            )
+        )
+    }
+}

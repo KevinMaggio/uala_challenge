@@ -1,0 +1,8 @@
+package com.google.uala_challenge.domain.repository
+
+import com.google.uala_challenge.data.dto.AsyncResult
+import com.google.uala_challenge.data.dto.CitiesResponse
+
+interface CitiesRepository {
+    suspend fun getAllCities(): AsyncResult<CitiesResponse, Exception>
+}
