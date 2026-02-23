@@ -1,4 +1,4 @@
-package com.google.uala_challenge
+package com.google.uala_challenge.presenter.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -17,8 +17,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Uala_challengeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    CitiesScreen(modifier = Modifier.padding(innerPadding))
+                Scaffold(modifier = Modifier.Companion.fillMaxSize()) { innerPadding ->
+                    CitiesScreen(modifier = Modifier.Companion.padding(innerPadding))
                 }
             }
         }

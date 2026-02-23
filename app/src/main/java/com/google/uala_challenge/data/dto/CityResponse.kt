@@ -2,7 +2,7 @@ package com.google.uala_challenge.data.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class CitiesResponse(
+data class CityResponse(
     @SerializedName("country")
     val country: String?,
     @SerializedName("name")

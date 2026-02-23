@@ -1,15 +1,15 @@
 package com.google.uala_challenge.domain.mapper
 
-import com.google.uala_challenge.data.dto.CitiesResponse
+import com.google.uala_challenge.data.dto.CityResponse
 import com.google.uala_challenge.domain.model.CitiesModel
 
-fun List<CitiesResponse>.toModel(): CitiesModel {
+fun List<CityResponse>.toModel(): CitiesModel {
     return CitiesModel(
         cities = this.toListCities() ?: emptyList()
     )
 }
 
-private fun List<CitiesResponse>.toListCities(): List<CitiesModel.Citi>? {
+private fun List<CityResponse>.toListCities(): List<CitiesModel.Citi>? {
     return this.map { citi ->
         CitiesModel.Citi(
             country = citi.country.orEmpty(),
