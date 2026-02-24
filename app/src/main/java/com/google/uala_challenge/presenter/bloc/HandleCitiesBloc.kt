@@ -1,5 +1,6 @@
 package com.google.uala_challenge.presenter.bloc
 
+import com.google.uala_challenge.core.network.NoConnectivityException
 import com.google.uala_challenge.data.dto.AsyncResult
 import com.google.uala_challenge.domain.usecase.GetCitiesUseCase
 import javax.inject.Inject
@@ -14,20 +15,22 @@ class HandleCitiesBloc @Inject constructor(
         update: CitiStateUpdate
     ) {
         if (event !is CitiesEvent.GetCities) return
+        update { it.copy(isLoading = true, error = false, errorInternet = false) }
         val result = getCitiesUseCase()
 
-        when(result){
+        when (result) {
             is AsyncResult.Failure -> {
-                update{
+                val isNoInternet = result.error is NoConnectivityException
+                update {
                     it.copy(
-                        error = true,
+                        error = !isNoInternet,
+                        errorInternet = isNoInternet,
                         isLoading = false
                     )
                 }
             }
-
             is AsyncResult.Success -> {
-                update{
+                update {
                     it.copy(
                         data = result.value,
                         filteredList = result.value,

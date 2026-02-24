@@ -5,5 +5,6 @@ data class CitiesState(
     val filteredList: List<CityModel>? = null,
     val selectedCity: CityModel? = null,
     val error: Boolean = false,
+    val errorInternet: Boolean = false,
     val isLoading: Boolean = true
 )

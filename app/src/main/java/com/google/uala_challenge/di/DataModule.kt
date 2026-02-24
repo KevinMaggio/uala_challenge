@@ -1,5 +1,7 @@
 package com.google.uala_challenge.di
 
+import com.google.uala_challenge.core.network.ConnectivityChecker
+import com.google.uala_challenge.core.network.ConnectivityCheckerImpl
 import com.google.uala_challenge.data.repository.CitiesRepositoryImpl
 import com.google.uala_challenge.domain.repository.CitiesRepository
 import dagger.Binds
@@ -15,4 +17,8 @@ abstract class DataModule {
     @Binds
     @Singleton
     abstract fun bindCitiesRepository(impl: CitiesRepositoryImpl): CitiesRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindConnectivityChecker(impl: ConnectivityCheckerImpl): ConnectivityChecker
 }
