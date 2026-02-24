@@ -1,11 +1,13 @@
 package com.google.uala_challenge.data.dataSource.remote
 
 import com.google.uala_challenge.core.constants.ERROR_EMPTY_RESPONSE
-import com.google.uala_challenge.core.network.RetrofitProvider
 import com.google.uala_challenge.data.dto.AsyncResult
+import javax.inject.Inject
 import com.google.uala_challenge.data.dto.CityResponse
 
-class CitiesService(val citiesAPI: CitiesAPI = RetrofitProvider.getInstance()) {
+class CitiesService @Inject constructor(
+    private val citiesAPI: CitiesAPI
+) {
 
     suspend fun getCities(): AsyncResult<List<CityResponse>, Exception> {
         return try {

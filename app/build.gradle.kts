@@ -2,14 +2,14 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt.android)
+    kotlin("kapt")
     kotlin("plugin.serialization") version "2.0.0"
 }
 
 android {
     namespace = "com.google.uala_challenge"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.google.uala_challenge"
@@ -81,7 +81,12 @@ dependencies {
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
-    
+
+    // Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
+    kapt(libs.hilt.compiler)
+
     // Debug
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)

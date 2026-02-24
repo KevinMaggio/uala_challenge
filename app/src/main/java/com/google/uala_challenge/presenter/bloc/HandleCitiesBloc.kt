@@ -2,8 +2,11 @@ package com.google.uala_challenge.presenter.bloc
 
 import com.google.uala_challenge.data.dto.AsyncResult
 import com.google.uala_challenge.domain.usecase.GetCitiesUseCase
+import javax.inject.Inject
 
-class HandleCitiesBloc(val getCitiesUseCase: GetCitiesUseCase = GetCitiesUseCase()): CitiesBaseBloc {
+class HandleCitiesBloc @Inject constructor(
+    private val getCitiesUseCase: GetCitiesUseCase
+) : CitiesBaseBloc {
     override fun canHandle(event: CitiesEvent): Boolean = event is CitiesEvent.GetCities
 
     override suspend fun handle(

@@ -1,8 +1,9 @@
 package com.google.uala_challenge.domain.usecase
 
 import com.google.uala_challenge.domain.model.CityModel
+import javax.inject.Inject
 
-class SearchCitiesUseCase {
+class SearchCitiesUseCase @Inject constructor() {
     operator fun invoke(
         query: String?,
         cities: List<CityModel>?

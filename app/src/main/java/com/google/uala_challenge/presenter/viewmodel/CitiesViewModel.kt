@@ -4,20 +4,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.uala_challenge.domain.model.CitiesState
 import com.google.uala_challenge.presenter.bloc.CitiesBaseBloc
-import com.google.uala_challenge.presenter.bloc.CitiesBlocs
 import com.google.uala_challenge.presenter.bloc.CitiesEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.jvm.JvmSuppressWildcards
+import javax.inject.Inject
+import javax.inject.Named
 
-class CitiesViewModel : ViewModel() {
+@HiltViewModel
+class CitiesViewModel @Inject constructor(
+    @Named("CitiesBlocs") @JvmSuppressWildcards private val blocs: List<CitiesBaseBloc>
+) : ViewModel() {
 
     private val _state = MutableStateFlow(CitiesState())
     val state: StateFlow<CitiesState> = _state
-
-    val blocs: List<CitiesBaseBloc> = CitiesBlocs.getCitiesBlocs()
 
     fun sendEvent(event: CitiesEvent) {
         viewModelScope.launch {
