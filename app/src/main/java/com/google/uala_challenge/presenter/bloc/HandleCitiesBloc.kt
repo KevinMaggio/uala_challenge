@@ -27,6 +27,7 @@ class HandleCitiesBloc(val getCitiesUseCase: GetCitiesUseCase = GetCitiesUseCase
                 update{
                     it.copy(
                         data = result.value,
+                        filteredList = result.value,
                         isLoading = false
                     )
                 }

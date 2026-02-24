@@ -1,6 +1,5 @@
 package com.google.uala_challenge.presenter.screen
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -36,14 +35,16 @@ fun CitiesScreen(
             LoadingScreen()
         }
         SearchComponent(
-            onQueryChange = {}
+            onQueryChange = { query ->
+                viewModel.sendEvent(CitiesEvent.SearchCity(query, state.data))
+            }
         )
 
-        state.data?.let {
+        state.filteredList?.let {
             LazyColumn {
                 items(
-                    items = it.cities,
-                    key = { citi -> citi.id }
+                    items = it,
+                    key = {  citi-> citi.id }
                 ) { citi ->
                     ItemCity(citi)
                 }

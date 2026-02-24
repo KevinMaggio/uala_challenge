@@ -1,7 +1,8 @@
 package com.google.uala_challenge.domain.model
 
 data class CitiesState (
-    var data: CitiesModel? = null,
-    var error : Boolean = false,
+    val data: List<CityModel>? = null,
+    val filteredList: List<CityModel>? = null,
+    val error : Boolean = false,
     val isLoading: Boolean = true
 )

@@ -20,7 +20,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.google.uala_challenge.R
 import com.google.uala_challenge.ui.theme.Black
 import com.google.uala_challenge.ui.theme.Gray
 import com.google.uala_challenge.ui.theme.softGray
@@ -46,7 +48,7 @@ fun SearchComponent(
             .shadow(4.dp, shape = RoundedCornerShape(28.dp)),
         placeholder = {
             Text(
-                text = "Search for a city by name...",
+                text = stringResource(R.string.search_hint),
                 style = MaterialTheme.typography.bodyMedium,
                 color = Gray
             )

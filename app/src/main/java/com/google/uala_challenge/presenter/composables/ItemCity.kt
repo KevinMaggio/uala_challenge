@@ -21,13 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.google.uala_challenge.core.utils.toTwoDecimalString
-import com.google.uala_challenge.domain.model.CitiesModel
+import com.google.uala_challenge.domain.model.CityModel
 import com.google.uala_challenge.ui.theme.Black
 import com.google.uala_challenge.ui.theme.Gray
 
 @Composable
 fun ItemCity(
-    city: CitiesModel.Citi
+    city: CityModel
 ) {
     Row(
         modifier = Modifier
