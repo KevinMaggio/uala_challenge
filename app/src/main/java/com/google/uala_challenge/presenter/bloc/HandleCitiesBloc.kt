@@ -18,7 +18,7 @@ class HandleCitiesBloc(val getCitiesUseCase: GetCitiesUseCase = GetCitiesUseCase
                 update{
                     it.copy(
                         error = true,
-                        loading = false
+                        isLoading = false
                     )
                 }
             }
@@ -27,7 +27,7 @@ class HandleCitiesBloc(val getCitiesUseCase: GetCitiesUseCase = GetCitiesUseCase
                 update{
                     it.copy(
                         data = result.value,
-                        loading = false
+                        isLoading = false
                     )
                 }
             }
