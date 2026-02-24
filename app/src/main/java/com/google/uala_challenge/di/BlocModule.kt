@@ -8,6 +8,7 @@ import com.google.uala_challenge.presenter.bloc.CitiesBaseBloc
 import com.google.uala_challenge.presenter.bloc.HandleCitiesBloc
 import com.google.uala_challenge.presenter.bloc.HandleSearchCitiesBloc
 import com.google.uala_challenge.presenter.bloc.HandleSelectCityBloc
+import com.google.uala_challenge.presenter.bloc.HandleToggleFilterFavoritesBloc
 import com.google.uala_challenge.presenter.bloc.HandleToggleFavoriteBloc
 import dagger.Module
 import dagger.Provides
@@ -41,18 +42,25 @@ object BlocModule {
     }
 
     @Provides
+    fun provideHandleToggleFilterFavoritesBloc(searchCitiesUseCase: SearchCitiesUseCase): HandleToggleFilterFavoritesBloc {
+        return HandleToggleFilterFavoritesBloc(searchCitiesUseCase)
+    }
+
+    @Provides
     @Named("CitiesBlocs")
     fun provideCitiesBlocs(
         handleCitiesBloc: HandleCitiesBloc,
         handleSearchCitiesBloc: HandleSearchCitiesBloc,
         handleSelectCityBloc: HandleSelectCityBloc,
-        handleToggleFavoriteBloc: HandleToggleFavoriteBloc
+        handleToggleFavoriteBloc: HandleToggleFavoriteBloc,
+        handleToggleFilterFavoritesBloc: HandleToggleFilterFavoritesBloc
     ): List<@JvmWildcard CitiesBaseBloc> {
         return listOf(
             handleCitiesBloc,
             handleSearchCitiesBloc,
             handleSelectCityBloc,
-            handleToggleFavoriteBloc
+            handleToggleFavoriteBloc,
+            handleToggleFilterFavoritesBloc
         )
     }
 }

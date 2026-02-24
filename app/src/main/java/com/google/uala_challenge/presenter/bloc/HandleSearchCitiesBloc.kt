@@ -13,9 +13,14 @@ class HandleSearchCitiesBloc @Inject constructor(
         update: CitiStateUpdate
     ) {
         if (event !is CitiesEvent.SearchCity) return
-        val filteredList = searchCitiesUseCase(event.query, event.cities)
-        update {
-            it.copy(filteredList = filteredList)
+        update { current ->
+            val baseList = if (current.showOnlyFavorites) {
+                (event.cities ?: current.data).orEmpty().filter { it.isFavorite }
+            } else {
+                (event.cities ?: current.data).orEmpty()
+            }
+            val filteredList = searchCitiesUseCase(event.query, baseList)
+            current.copy(filteredList = filteredList, query = event.query)
         }
     }
 }

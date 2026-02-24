@@ -7,4 +7,5 @@ sealed class CitiesEvent {
     data class SearchCity(val query: String?, val cities: List<CityModel>?) : CitiesEvent()
     data class SelectCity(val city: CityModel?) : CitiesEvent()
     data class ToggleFavorite(val cityId: Int) : CitiesEvent()
+    object ToggleFilterFavorites : CitiesEvent()
 }

@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -12,13 +15,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.uala_challenge.presenter.bloc.CitiesEvent
 import com.google.uala_challenge.presenter.composables.BottomSheetMap
+import com.google.uala_challenge.presenter.composables.FavoritePill
 import com.google.uala_challenge.presenter.composables.ItemCity
 import com.google.uala_challenge.presenter.composables.SearchComponent
 import com.google.uala_challenge.presenter.composables.SkeletonCityItem
 import com.google.uala_challenge.presenter.viewmodel.CitiesViewModel
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.rememberModalBottomSheetState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,27 +54,29 @@ fun CitiesScreen(
 
         when {
             state.isLoading -> {
-                LazyColumn {
-                    items(
-                        count = 10,
-                        key = { it }
-                    ) {
-                        SkeletonCityItem()
-                    }
-                }
+                LoadingScreen()
             }
+
             state.errorInternet -> {
                 ErrorConnectionScreen(
                     onRetry = { viewModel.sendEvent(CitiesEvent.GetCities) }
                 )
             }
+
             state.error -> {
                 ErrorServerScreen(
                     onRetry = { viewModel.sendEvent(CitiesEvent.GetCities) }
                 )
             }
+
             else -> {
                 state.filteredList?.let {
+
+                    FavoritePill(
+                        isActive = state.showOnlyFavorites,
+                        onClick = { viewModel.sendEvent(CitiesEvent.ToggleFilterFavorites) }
+                    )
+
                     LazyColumn {
                         items(
                             items = it,
@@ -81,7 +84,13 @@ fun CitiesScreen(
                         ) { citi ->
                             ItemCity(
                                 city = citi,
-                                onFavoriteClick = { viewModel.sendEvent(CitiesEvent.ToggleFavorite(citi.id)) },
+                                onFavoriteClick = {
+                                    viewModel.sendEvent(
+                                        CitiesEvent.ToggleFavorite(
+                                            citi.id
+                                        )
+                                    )
+                                },
                                 onClick = { viewModel.sendEvent(CitiesEvent.SelectCity(citi)) }
                             )
                         }

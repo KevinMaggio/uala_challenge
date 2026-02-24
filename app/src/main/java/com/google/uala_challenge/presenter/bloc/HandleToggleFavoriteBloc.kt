@@ -19,9 +19,12 @@ class HandleToggleFavoriteBloc @Inject constructor(
             val newData = data.map { city ->
                 if (city.id == event.cityId) city.copy(isFavorite = !city.isFavorite) else city
             }
-            val newFiltered = current.filteredList?.map { city ->
+            var newFiltered = current.filteredList?.map { city ->
                 if (city.id == event.cityId) city.copy(isFavorite = !city.isFavorite) else city
             } ?: current.filteredList
+            if (current.showOnlyFavorites && newFiltered != null) {
+                newFiltered = newFiltered.filter { it.isFavorite }
+            }
             val newFavoriteIds = newData.filter { it.isFavorite }.map { it.id }.toSet()
             saveFavoriteIdsUseCase(newFavoriteIds)
             current.copy(data = newData, filteredList = newFiltered)
