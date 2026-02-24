@@ -6,6 +6,7 @@ import com.google.uala_challenge.domain.usecase.SearchCitiesUseCase
 import com.google.uala_challenge.presenter.bloc.CitiesBaseBloc
 import com.google.uala_challenge.presenter.bloc.HandleCitiesBloc
 import com.google.uala_challenge.presenter.bloc.HandleSearchCitiesBloc
+import com.google.uala_challenge.presenter.bloc.HandleSelectCityBloc
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,11 +29,17 @@ object BlocModule {
     }
 
     @Provides
+    fun provideHandleSelectCityBloc(): HandleSelectCityBloc {
+        return HandleSelectCityBloc()
+    }
+
+    @Provides
     @Named("CitiesBlocs")
     fun provideCitiesBlocs(
         handleCitiesBloc: HandleCitiesBloc,
-        handleSearchCitiesBloc: HandleSearchCitiesBloc
+        handleSearchCitiesBloc: HandleSearchCitiesBloc,
+        handleSelectCityBloc: HandleSelectCityBloc
     ): List<@JvmWildcard CitiesBaseBloc> {
-        return listOf(handleCitiesBloc, handleSearchCitiesBloc)
+        return listOf(handleCitiesBloc, handleSearchCitiesBloc, handleSelectCityBloc)
     }
 }

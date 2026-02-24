@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,6 +7,15 @@ plugins {
     alias(libs.plugins.hilt.android)
     kotlin("kapt")
     kotlin("plugin.serialization") version "2.0.0"
+}
+
+val localProperties = Properties().apply {
+    rootProject.file("local.properties").takeIf { it.exists() }?.reader(Charsets.UTF_8)?.use { load(it) }
+}
+val mapsApiKey: String = localProperties.getProperty("MAPS_API_KEY", "AIzaSyDfRYeRJ8qch--p_tLme4q1wOjAfAjbBvk")
+if (mapsApiKey.isBlank()) {
+    logger.warn("MAPS_API_KEY is missing or empty in local.properties. Add: MAPS_API_KEY=your_google_maps_api_key")
+    logger.warn("Without it, the map will show controls but no tiles. Enable 'Maps SDK for Android' in Google Cloud Console.")
 }
 
 android {
@@ -19,6 +30,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
     }
 
     buildTypes {
@@ -86,6 +99,10 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
+
+    // Maps
+    implementation(libs.play.services.maps)
+    implementation(libs.maps.compose)
 
     // Debug
     debugImplementation(libs.androidx.ui.tooling)
