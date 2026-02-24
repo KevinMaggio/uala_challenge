@@ -19,3 +19,6 @@ val SoftBlue = Color(0xFFB3D1FF)
 val Gray = Color(0xFF4F4F4F)
 
 val softGray = Color(0xFFF2F4F7)
+
+val SkeletonBase = Color(0xFFE0E0E0)
+val SkeletonHighlight = Color(0xFFF5F5F5)

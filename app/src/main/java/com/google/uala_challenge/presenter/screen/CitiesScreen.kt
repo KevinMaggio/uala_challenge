@@ -14,6 +14,7 @@ import com.google.uala_challenge.presenter.bloc.CitiesEvent
 import com.google.uala_challenge.presenter.composables.BottomSheetMap
 import com.google.uala_challenge.presenter.composables.ItemCity
 import com.google.uala_challenge.presenter.composables.SearchComponent
+import com.google.uala_challenge.presenter.composables.SkeletonCityItem
 import com.google.uala_challenge.presenter.viewmodel.CitiesViewModel
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -44,25 +45,33 @@ fun CitiesScreen(
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        if (state.isLoading) {
-            LoadingScreen()
-        }
         SearchComponent(
             onQueryChange = { query ->
                 viewModel.sendEvent(CitiesEvent.SearchCity(query, state.data))
             }
         )
 
-        state.filteredList?.let {
+        if (state.isLoading) {
             LazyColumn {
                 items(
-                    items = it,
-                    key = { citi -> citi.id }
-                ) { citi ->
-                    ItemCity(
-                        city = citi,
-                        onClick = { viewModel.sendEvent(CitiesEvent.SelectCity(citi)) }
-                    )
+                    count = 10,
+                    key = { it }
+                ) {
+                    SkeletonCityItem()
+                }
+            }
+        } else {
+            state.filteredList?.let {
+                LazyColumn {
+                    items(
+                        items = it,
+                        key = { citi -> citi.id }
+                    ) { citi ->
+                        ItemCity(
+                            city = citi,
+                            onClick = { viewModel.sendEvent(CitiesEvent.SelectCity(citi)) }
+                        )
+                    }
                 }
             }
         }
