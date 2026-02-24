@@ -51,26 +51,39 @@ fun CitiesScreen(
             }
         )
 
-        if (state.isLoading) {
-            LazyColumn {
-                items(
-                    count = 10,
-                    key = { it }
-                ) {
-                    SkeletonCityItem()
-                }
-            }
-        } else {
-            state.filteredList?.let {
+        when {
+            state.isLoading -> {
                 LazyColumn {
                     items(
-                        items = it,
-                        key = { citi -> citi.id }
-                    ) { citi ->
-                        ItemCity(
-                            city = citi,
-                            onClick = { viewModel.sendEvent(CitiesEvent.SelectCity(citi)) }
-                        )
+                        count = 10,
+                        key = { it }
+                    ) {
+                        SkeletonCityItem()
+                    }
+                }
+            }
+            state.errorInternet -> {
+                ErrorConnectionScreen(
+                    onRetry = { viewModel.sendEvent(CitiesEvent.GetCities) }
+                )
+            }
+            state.error -> {
+                ErrorServerScreen(
+                    onRetry = { viewModel.sendEvent(CitiesEvent.GetCities) }
+                )
+            }
+            else -> {
+                state.filteredList?.let {
+                    LazyColumn {
+                        items(
+                            items = it,
+                            key = { citi -> citi.id }
+                        ) { citi ->
+                            ItemCity(
+                                city = citi,
+                                onClick = { viewModel.sendEvent(CitiesEvent.SelectCity(citi)) }
+                            )
+                        }
                     }
                 }
             }

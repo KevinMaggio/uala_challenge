@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">uala_challenge</string>
     <string name="search_hint">Search for a city by name...</string>
+    <string name="retry">Reintentar</string>
+    <string name="error_server">Ups! tenemos un inconveniente.</string>
+    <string name="error_internet">Error de conexión</string>
+
 </resources>
