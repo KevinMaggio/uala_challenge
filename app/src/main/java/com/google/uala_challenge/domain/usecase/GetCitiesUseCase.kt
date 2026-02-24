@@ -12,7 +12,10 @@ class GetCitiesUseCase @Inject constructor(
     suspend operator fun invoke(): AsyncResult<List<CityModel>, Exception> {
         return when (val result = repository.getAllCities()) {
             is AsyncResult.Success -> {
-                AsyncResult.Success(result.value.toModel())
+                val cities = result.value.toModel().sortedWith(
+                    compareBy({ it.name.lowercase() }, { it.country.lowercase() })
+                )
+                AsyncResult.Success(cities)
             }
 
             is AsyncResult.Failure -> {
