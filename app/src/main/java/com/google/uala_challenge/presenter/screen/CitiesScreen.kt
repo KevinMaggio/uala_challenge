@@ -81,6 +81,7 @@ fun CitiesScreen(
                         ) { citi ->
                             ItemCity(
                                 city = citi,
+                                onFavoriteClick = { viewModel.sendEvent(CitiesEvent.ToggleFavorite(citi.id)) },
                                 onClick = { viewModel.sendEvent(CitiesEvent.SelectCity(citi)) }
                             )
                         }

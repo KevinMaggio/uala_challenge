@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,6 +33,7 @@ import com.google.uala_challenge.ui.theme.Gray
 @Composable
 fun ItemCity(
     city: CityModel,
+    onFavoriteClick: () -> Unit = {},
     onClick: () -> Unit = {}
 ) {
     Row(
@@ -89,6 +92,24 @@ fun ItemCity(
                 style = MaterialTheme.typography.labelSmall,
                 color = Gray,
                 fontWeight = FontWeight.Black
+            )
+        }
+
+        Spacer(modifier = Modifier.padding(4.dp))
+
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() },
+                onClick = onFavoriteClick
+            )
+        ) {
+            Icon(
+                imageVector = if (city.isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                contentDescription = if (city.isFavorite) "Quitar de favoritos" else "Agregar a favoritos",
+                tint = Gray,
+                modifier = Modifier.size(24.dp)
             )
         }
 

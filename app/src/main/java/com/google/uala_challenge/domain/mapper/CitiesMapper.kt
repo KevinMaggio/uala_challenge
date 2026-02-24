@@ -16,7 +16,8 @@ private fun List<CityResponse>.toListCities(): List<CityModel>? {
             coordinates = CityModel.Coordinates(
                 latitude = citi.coordinates.latitude ?: 0.0,
                 longitude = citi.coordinates.longitude ?: 0.0
-            )
+            ),
+            isFavorite = false
         )
     }
 }

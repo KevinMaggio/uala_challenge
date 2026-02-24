@@ -12,15 +12,16 @@ class GetCitiesUseCase @Inject constructor(
     suspend operator fun invoke(): AsyncResult<List<CityModel>, Exception> {
         return when (val result = repository.getAllCities()) {
             is AsyncResult.Success -> {
-                val cities = result.value.toModel().sortedWith(
+                val fromApi = result.value.toModel().sortedWith(
                     compareBy({ it.name.lowercase() }, { it.country.lowercase() })
                 )
-                AsyncResult.Success(cities)
+                val favoriteIds = repository.getFavoriteIds()
+                val merged = fromApi.map { city ->
+                    city.copy(isFavorite = city.id in favoriteIds)
+                }
+                AsyncResult.Success(merged)
             }
-
-            is AsyncResult.Failure -> {
-                AsyncResult.Failure(error = result.error)
-            }
+            is AsyncResult.Failure -> AsyncResult.Failure(error = result.error)
         }
     }
 }

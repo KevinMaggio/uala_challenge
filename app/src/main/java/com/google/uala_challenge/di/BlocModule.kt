@@ -2,11 +2,13 @@
 package com.google.uala_challenge.di
 
 import com.google.uala_challenge.domain.usecase.GetCitiesUseCase
+import com.google.uala_challenge.domain.usecase.SaveFavoriteIdsUseCase
 import com.google.uala_challenge.domain.usecase.SearchCitiesUseCase
 import com.google.uala_challenge.presenter.bloc.CitiesBaseBloc
 import com.google.uala_challenge.presenter.bloc.HandleCitiesBloc
 import com.google.uala_challenge.presenter.bloc.HandleSearchCitiesBloc
 import com.google.uala_challenge.presenter.bloc.HandleSelectCityBloc
+import com.google.uala_challenge.presenter.bloc.HandleToggleFavoriteBloc
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,12 +36,23 @@ object BlocModule {
     }
 
     @Provides
+    fun provideHandleToggleFavoriteBloc(saveFavoriteIdsUseCase: SaveFavoriteIdsUseCase): HandleToggleFavoriteBloc {
+        return HandleToggleFavoriteBloc(saveFavoriteIdsUseCase)
+    }
+
+    @Provides
     @Named("CitiesBlocs")
     fun provideCitiesBlocs(
         handleCitiesBloc: HandleCitiesBloc,
         handleSearchCitiesBloc: HandleSearchCitiesBloc,
-        handleSelectCityBloc: HandleSelectCityBloc
+        handleSelectCityBloc: HandleSelectCityBloc,
+        handleToggleFavoriteBloc: HandleToggleFavoriteBloc
     ): List<@JvmWildcard CitiesBaseBloc> {
-        return listOf(handleCitiesBloc, handleSearchCitiesBloc, handleSelectCityBloc)
+        return listOf(
+            handleCitiesBloc,
+            handleSearchCitiesBloc,
+            handleSelectCityBloc,
+            handleToggleFavoriteBloc
+        )
     }
 }
