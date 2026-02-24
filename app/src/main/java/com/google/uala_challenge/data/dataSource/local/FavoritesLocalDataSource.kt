@@ -6,9 +6,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import androidx.core.content.edit
-
-private const val PREFS_NAME = "favorites_prefs"
-private const val KEY_FAVORITE_IDS = "favorite_ids"
+import com.google.uala_challenge.core.constants.KEY_FAVORITE_IDS
+import com.google.uala_challenge.core.constants.PREFS_NAME
 
 class FavoritesLocalDataSource @Inject constructor(
     @ApplicationContext private val context: Context
