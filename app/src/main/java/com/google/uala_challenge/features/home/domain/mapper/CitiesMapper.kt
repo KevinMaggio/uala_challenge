@@ -17,7 +17,8 @@ private fun List<CityResponse>.toListCities(): List<CityModel>? {
                 latitude = citi.coordinates.latitude ?: 0.0,
                 longitude = citi.coordinates.longitude ?: 0.0
             ),
-            isFavorite = false
+            isFavorite = false,
+            searchKey = "${citi.name.orEmpty().lowercase()}, ${citi.country.orEmpty().lowercase()}"
         )
     }
 }

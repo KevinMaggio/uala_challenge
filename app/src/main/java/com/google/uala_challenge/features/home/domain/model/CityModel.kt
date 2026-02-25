@@ -5,7 +5,8 @@ data class CityModel(
     val name: String,
     val id: Int,
     val coordinates: Coordinates,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val searchKey: String = ""
 ) {
     data class Coordinates(
         val latitude: Double,
