@@ -30,7 +30,9 @@ fun CitiesScreen(
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     LaunchedEffect(Unit) {
-        viewModel.sendEvent(CitiesEvent.GetCities)
+        if (viewModel.state.value.data == null) {
+            viewModel.sendEvent(CitiesEvent.GetCities)
+        }
     }
 
     state.selectedCity?.let { city ->

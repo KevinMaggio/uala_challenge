@@ -1,4 +1,4 @@
-package com.google.uala_challenge.features.home.presenter.activity
+package com.google.uala_challenge.features.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
