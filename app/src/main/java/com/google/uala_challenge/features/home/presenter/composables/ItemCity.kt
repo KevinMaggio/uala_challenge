@@ -34,6 +34,7 @@ import com.google.uala_challenge.ui.theme.Gray
 fun ItemCity(
     city: CityModel,
     onFavoriteClick: () -> Unit = {},
+    onChevronClick: () -> Unit = {},
     onClick: () -> Unit = {}
 ) {
     Row(
@@ -119,10 +120,17 @@ fun ItemCity(
                 .padding(8.dp)
         )
 
-        Box(contentAlignment = Alignment.Center) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() },
+                onClick = onChevronClick
+            )
+        ) {
             Icon(
                 imageVector = Icons.Default.ChevronRight,
-                contentDescription = "Ubication",
+                contentDescription = "Ver detalle",
                 tint = Gray,
                 modifier = Modifier.size(20.dp)
             )

@@ -89,6 +89,7 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
     kapt(libs.hilt.compiler)
 
     // Maps

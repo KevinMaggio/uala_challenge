@@ -14,8 +14,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.uala_challenge.features.home.presenter.bloc.CitiesEvent
 import com.google.uala_challenge.features.home.presenter.composables.BottomSheetMap
 import com.google.uala_challenge.features.home.presenter.composables.CityMapPanel
@@ -29,9 +29,10 @@ import android.content.res.Configuration
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CitiesScreen(
+    onNavigateToDetail: (Int) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    val viewModel: CitiesViewModel = viewModel()
+    val viewModel: CitiesViewModel = hiltViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
@@ -58,6 +59,7 @@ fun CitiesScreen(
             ListPanel(
                 state = state,
                 viewModel = viewModel,
+                onNavigateToDetail = onNavigateToDetail,
                 modifier = Modifier.weight(1f)
             )
             CityMapPanel(
@@ -69,6 +71,7 @@ fun CitiesScreen(
         else -> ListPanel(
             state = state,
             viewModel = viewModel,
+            onNavigateToDetail = onNavigateToDetail,
             modifier = modifier.fillMaxSize()
         )
     }
@@ -78,6 +81,7 @@ fun CitiesScreen(
 private fun ListPanel(
     state: CitiesState,
     viewModel: CitiesViewModel,
+    onNavigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
@@ -86,14 +90,19 @@ private fun ListPanel(
                 viewModel.sendEvent(CitiesEvent.SearchCity(query, state.data))
             }
         )
-        ContentList(state = state, viewModel = viewModel)
+        ContentList(
+            state = state,
+            viewModel = viewModel,
+            onNavigateToDetail = onNavigateToDetail
+        )
     }
 }
 
 @Composable
 private fun ContentList(
     state: CitiesState,
-    viewModel: CitiesViewModel
+    viewModel: CitiesViewModel,
+    onNavigateToDetail: (Int) -> Unit
 ) {
     when {
         state.isLoading -> {
@@ -131,6 +140,7 @@ private fun ContentList(
                                     CitiesEvent.ToggleFavorite(citi.id)
                                 )
                             },
+                            onChevronClick = { onNavigateToDetail(citi.id) },
                             onClick = { viewModel.sendEvent(CitiesEvent.SelectCity(citi)) }
                         )
                     }
