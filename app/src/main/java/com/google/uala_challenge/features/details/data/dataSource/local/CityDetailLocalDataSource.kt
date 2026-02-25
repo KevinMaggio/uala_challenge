@@ -27,6 +27,6 @@ class CityDetailLocalDataSource @Inject constructor() {
         )
 
         fun getDetailForId(id: Int): CityDetailModel =
-            simulatedDetail.copy(id = id, name = "City #$id Example)")
+            simulatedDetail.copy(id = id, name = "City ID: #$id")
     }
 }
