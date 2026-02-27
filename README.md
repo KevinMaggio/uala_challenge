@@ -4,9 +4,11 @@ Aplicación Android desarrollada en Kotlin y Jetpack Compose que permite explora
 
 ## 📱 Capturas de Pantalla
 
-| Lista de Ciudades | Búsqueda y Filtro | Detalle de Ciudad | Mapa (Landscape) |
-|:---:|:---:|:---:|:---:|
-| <!-- Agrega imagen aquí --> | <!-- Agrega imagen aquí --> | <!-- Agrega imagen aquí --> | <!-- Agrega imagen aquí --> |
+
+<img width="373" height="831" alt="Captura de pantalla 2026-02-27 130049" src="https://github.com/user-attachments/assets/9730bbab-2b69-47a5-b4e5-e4cf47f653c1" />
+<img width="378" height="823" alt="Captura de pantalla 2026-02-27 130107" src="https://github.com/user-attachments/assets/bf50073f-6fdf-4ef9-b55b-7a8be6455070" /> <img width="387" height="869" alt="Captura de pantalla 2026-02-27 130155" src="https://github.com/user-attachments/assets/2cd3be0f-1807-4b67-b3d7-62f6ce94fe2c" /> <img width="1399" height="626" alt="Captura de pantalla 2026-02-27 130138" src="https://github.com/user-attachments/assets/bc20564b-1c03-458b-aca2-13fb9ed731c9" />
+ <img width="374" height="829" alt="Captura de pantalla 2026-02-27 130120" src="https://github.com/user-attachments/assets/d1c27856-77c3-42ef-9882-e6ea527583b1" />
+
 
 ## 🚀 Características Principales
 
